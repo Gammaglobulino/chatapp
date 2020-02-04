@@ -1,13 +1,14 @@
 package trace
 
 import (
+	"../trace"
 	"bytes"
 	"testing"
 )
 
 func TestNew(t *testing.T) {
 	var buf bytes.Buffer
-	tracer := New(&buf)
+	tracer := trace.New(&buf)
 	if tracer == nil {
 		t.Error("Return from a New should not be nil")
 	} else {
@@ -16,4 +17,9 @@ func TestNew(t *testing.T) {
 			t.Errorf("Trace should not write '%s'.", buf.String())
 		}
 	}
+}
+
+func TestOff(t *testing.T) {
+	var silentTracer trace.Tracer = trace.Off()
+	silentTracer.Trace("something")
 }
